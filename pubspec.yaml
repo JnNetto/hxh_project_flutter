@@ -32,6 +32,8 @@ dependencies:
     sdk: flutter
   flutter_modular: ^5.0.3
   stroke_text: ^0.0.2
+  just_audio: ^0.9.36
+  
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -59,10 +61,14 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-
+  fonts:
+    - family: SF
+      fonts:
+        - asset: assets/fonts/SF_Speakeasy.ttf
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
+    - assets/audio/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
