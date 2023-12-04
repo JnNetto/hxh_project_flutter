@@ -86,6 +86,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_echo:
+    dependency: "direct main"
+    description:
+      name: flutter_echo
+      sha256: "8c2114cb0df605e0675ef66a27ddb800a74f934a2e39c5754c9a63bbd0751fc0"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.1"
   flutter_lints:
     dependency: "direct dev"
     description:

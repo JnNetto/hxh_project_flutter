@@ -1,15 +1,30 @@
-
 import 'package:just_audio/just_audio.dart';
 
-
-
 class BackgroundMusicPlayer {
-  static Future<void> playBackgroundMusic(AudioPlayer player, String path ) async {
-    player.setLoopMode(LoopMode.one);
-    player.play();
-    player.setVolume(0.5);
+  static late AudioPlayer _player;
+
+  static void initialize() {
+    _player = AudioPlayer();
   }
-  static Future<void> stopBackgroundMusic(AudioPlayer player) async {
-    player.stop();
+
+  static Future<void> loadMusic(String musicPath) async {
+    await _player.setAsset(musicPath);
+  }
+
+  static Future<void> playBackgroundMusic() async {
+    _player.setLoopMode(LoopMode.one);
+    await _player.play(); 
+  }
+
+  static Future<void> stopBackgroundMusic() async {
+    await _player.stop();
+  }
+
+  static void setVolume(double volume) {
+    _player.setVolume(volume);
+  }
+
+  static double getVolume() {
+    return _player.volume;
   }
 }

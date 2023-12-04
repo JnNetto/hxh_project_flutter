@@ -1,7 +1,5 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
-import 'package:just_audio/just_audio.dart';
 import 'package:stroke_text/stroke_text.dart';
 import '../core/utils/config_screen.dart';
 import '../core/utils/background_music.dart';
@@ -13,11 +11,10 @@ class HomePage extends StatefulWidget{
   
 }
 
-class _HomePage extends State<HomePage>{
+class _HomePage extends State<HomePage> with WidgetsBindingObserver{
   var verify = true;
   var _isVisible = true;
-  late AudioPlayer player = AudioPlayer()..setAsset("assets/audio/departure.mp3");
-
+  String pathMusic = "assets/audio/departure.mp3";
 void _showCustomDialog(BuildContext contextDialog, double maxHeight, double maxWidth) {
   showDialog(
     context: contextDialog,
@@ -98,7 +95,8 @@ void _showCustomDialog(BuildContext contextDialog, double maxHeight, double maxW
 
   @override
   void initState() {
-    // BackgroundMusicPlayer.playBackgroundMusic(player, 'assets/audio/departure.mp3');
+    BackgroundMusicPlayer.initialize();
+    BackgroundMusicPlayer.loadMusic(pathMusic);
     super.initState();
     
     Timer.periodic(const Duration(milliseconds: 500),(timer){
@@ -114,14 +112,16 @@ void _showCustomDialog(BuildContext contextDialog, double maxHeight, double maxW
       floatingActionButton: ElevatedButton(
         onPressed: () {
           showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return ConfigPage.buildSettingsDialog(context);
-                },
-              );},
+              context: context,
+              barrierDismissible: false,
+              builder: (BuildContext context) {
+                return SettingsDialog(path: pathMusic,);
+              },
+            );
+          },
         style: ElevatedButton.styleFrom(
           padding: EdgeInsets.zero,
-          backgroundColor: Color.fromARGB(0, 28, 73, 5),
+          backgroundColor: const Color.fromARGB(0, 28, 73, 5),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12.0), 
               ),
@@ -152,7 +152,7 @@ void _showCustomDialog(BuildContext contextDialog, double maxHeight, double maxW
                 onTap:() {
                   _showCustomDialog(context, constrants.maxHeight, constrants.maxWidth);
                   verify = false;
-                  BackgroundMusicPlayer.playBackgroundMusic(player, 'assets/audio/departure.mp3');},
+                  BackgroundMusicPlayer.playBackgroundMusic();},
                 child: Padding(
                   padding: EdgeInsets.only(top: constrants.maxHeight * 0.8),
                   child: Center(
@@ -180,7 +180,7 @@ void _showCustomDialog(BuildContext contextDialog, double maxHeight, double maxW
   }
   @override
   void dispose() {
-    BackgroundMusicPlayer.stopBackgroundMusic(player);
+    BackgroundMusicPlayer.stopBackgroundMusic();
     super.dispose();
   }
 }

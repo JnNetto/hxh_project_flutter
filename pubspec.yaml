@@ -33,7 +33,7 @@ dependencies:
   flutter_modular: ^5.0.3
   stroke_text: ^0.0.2
   just_audio: ^0.9.36
-  
+  flutter_echo: ^0.0.1
 
 
   # The following adds the Cupertino Icons font to your application.
