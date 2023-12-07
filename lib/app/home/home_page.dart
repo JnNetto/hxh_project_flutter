@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:stroke_text/stroke_text.dart';
 import '../core/utils/config_screen.dart';
 import '../core/utils/background_music.dart';
@@ -63,7 +64,7 @@ void _showCustomDialog(BuildContext contextDialog, double maxHeight, double maxW
                         bottom: constraints.maxHeight * 0.21,
                         child: ElevatedButton(
                           onPressed: () {
-                            Navigator.of(context).pop();
+                            Modular.to.pushNamed("/nenPage");
                           },
                           style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all<Color>(Colors.white)
@@ -97,6 +98,7 @@ void _showCustomDialog(BuildContext contextDialog, double maxHeight, double maxW
   void initState() {
     BackgroundMusicPlayer.initialize();
     BackgroundMusicPlayer.loadMusic(pathMusic);
+    
     super.initState();
     
     Timer.periodic(const Duration(milliseconds: 500),(timer){
@@ -139,10 +141,13 @@ void _showCustomDialog(BuildContext contextDialog, double maxHeight, double maxW
         return Stack(
           children: [
             Container(
+              color: Colors.black,
+            ),
+            Container(
               decoration: const BoxDecoration(
               image: DecorationImage(
               fit: BoxFit.cover,
-              image: ExactAssetImage('assets/images/fundoHome.png'),
+              image: ExactAssetImage('assets/images/fundo2.png'),
             ),
           ),
             ),
