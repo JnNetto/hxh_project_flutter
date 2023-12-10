@@ -11,12 +11,12 @@ class NenPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _NenPageState();
 }
+String pathMusic = "assets/audio/departure.mp3";
 
 class _NenPageState extends State<NenPage> {
   final NenController _nenController = NenController(NenDataSourceImpl());
   late Future<List<String>> _nenTitles;
-  String pathMusic = "assets/audio/departure.mp3";
-  
+
   @override
   void initState() {
     super.initState();
@@ -32,7 +32,7 @@ class _NenPageState extends State<NenPage> {
           'Nen Page',
           style: TextStyle(color: Colors.white),
         ),
-        automaticallyImplyLeading: true,
+         automaticallyImplyLeading: true,
         actions: [
           ElevatedButton(
         onPressed: () {
@@ -40,7 +40,7 @@ class _NenPageState extends State<NenPage> {
               context: context,
               barrierDismissible: false,
               builder: (BuildContext context) {
-                return SettingsDialog(path: pathMusic,);
+                return SettingsDialog();
               },
             );
           },
@@ -78,95 +78,96 @@ class _NenPageState extends State<NenPage> {
                     return const Center(child: Text('Erro ao carregar dados Nen.'));
                   } else {
                     final List<String> nenTitles = snapshot.data!;
-                    return Stack(
-                      children: [
-                        Container(
-                          decoration: const BoxDecoration(
-                            image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: ExactAssetImage('assets/images/fundo3.png'),
+                    List<Widget> rows = [];
+                    for (var i = 0; i < nenTitles.length; i += 2) {
+                      rows.add(
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(left: constraints.maxWidth * 0.05),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: SizedBox(
+                                  width: constraints.maxWidth * 0.4,
+                                  height: contentHeight * 0.05,
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10.0),
+                                      ),
+                                      foregroundColor: Colors.black,
+                                      backgroundColor: const Color.fromARGB(255, 217, 217, 217),
+                                      elevation: 4,
+                                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                    ),
+                                    onPressed: () {
+                                      Future<List<Nen>> _nenContent =
+                                          _nenController.getNenContent(titulo: nenTitles[i]);
+                                    },
+                                    child: Text(
+                                      nenTitles[i],
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize: fontSize * 0.025
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                        Center(
-                          child: ListView.builder(
-                            itemCount: (nenTitles.length / 2).ceil(),
-                            itemBuilder: (context, index) {
-                              final int itemIndex = index * 2;
-                              return Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(left: constraints.maxWidth * 0.05),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: SizedBox(
-                                        width: constraints.maxWidth * 0.4,
-                                        height: contentHeight * 0.05,
-                                        child: ElevatedButton(
-                                          style: ElevatedButton.styleFrom(
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(10.0),
-                                            ),
-                                            foregroundColor: Colors.black,
-                                            backgroundColor: const Color.fromARGB(255, 217, 217, 217),
-                                            elevation: 4,
-                                            padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                          ),
-                                          onPressed: () {
-                                            Future<List<Nen>> _nenContent =
-                                                _nenController.getNenContent(titulo: nenTitles[itemIndex]);
-                                          },
-                                          child: Text(
-                                            nenTitles[itemIndex],
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              fontSize: fontSize * 0.025
-                                            ),
-                                          ),
-                                        ),
+                            if (i + 1 < nenTitles.length)
+                            Padding(
+                              padding: EdgeInsets.only(right: constraints.maxWidth * 0.05),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: SizedBox(
+                                  width: constraints.maxWidth * 0.4,
+                                  height: contentHeight * 0.05,
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10.0),
+                                      ),
+                                      backgroundColor: const Color.fromARGB(255, 217, 217, 217),
+                                      foregroundColor: Colors.black,
+                                      elevation: 4,
+                                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                    ),
+                                    onPressed: () {
+                                      Future<List<Nen>> _nenContent = _nenController
+                                          .getNenContent(titulo: nenTitles[i + 1]);
+                                    },
+                                    child: Text(
+                                      nenTitles[i + 1],
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        fontSize: fontSize * 0.025
                                       ),
                                     ),
                                   ),
-                                  if (itemIndex + 1 < nenTitles.length)
-                                  Padding(
-                                    padding: EdgeInsets.only(right: constraints.maxWidth * 0.05),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: SizedBox(
-                                        width: constraints.maxWidth * 0.4,
-                                        height: contentHeight * 0.05,
-                                        child: ElevatedButton(
-                                          style: ElevatedButton.styleFrom(
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius: BorderRadius.circular(10.0),
-                                            ),
-                                            backgroundColor: const Color.fromARGB(255, 217, 217, 217),
-                                            foregroundColor: Colors.black,
-                                            elevation: 4,
-                                            padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                          ),
-                                          onPressed: () {
-                                            Future<List<Nen>> _nenContent = _nenController
-                                                .getNenContent(titulo: nenTitles[itemIndex + 1]);
-                                          },
-                                          child: Text(
-                                            nenTitles[itemIndex + 1],
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                              fontSize: fontSize * 0.025
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              );
-                            },
-                          ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
+                      );
+                    }
+                    return Container(
+                      width: double.infinity,
+                      height: double.infinity,
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: ExactAssetImage('assets/images/fundo3.png'),
+                      ),
+                    ),
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: rows,
+                        ),
+                      ),
                     );
                   }
                 },

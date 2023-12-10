@@ -15,7 +15,6 @@ class HomePage extends StatefulWidget{
 class _HomePage extends State<HomePage> with WidgetsBindingObserver{
   var verify = true;
   var _isVisible = true;
-  String pathMusic = "assets/audio/departure.mp3";
 void _showCustomDialog(BuildContext contextDialog, double maxHeight, double maxWidth) {
   showDialog(
     context: contextDialog,
@@ -96,11 +95,8 @@ void _showCustomDialog(BuildContext contextDialog, double maxHeight, double maxW
 
   @override
   void initState() {
-    BackgroundMusicPlayer.initialize();
-    BackgroundMusicPlayer.loadMusic(pathMusic);
-    
+    BackgroundMusicPlayer.loadMusic(0);
     super.initState();
-    
     Timer.periodic(const Duration(milliseconds: 500),(timer){
       setState(() {
         _isVisible = !_isVisible;
@@ -117,7 +113,7 @@ void _showCustomDialog(BuildContext contextDialog, double maxHeight, double maxW
               context: context,
               barrierDismissible: false,
               builder: (BuildContext context) {
-                return SettingsDialog(path: pathMusic,);
+                return SettingsDialog();
               },
             );
           },
@@ -157,7 +153,7 @@ void _showCustomDialog(BuildContext contextDialog, double maxHeight, double maxW
                 onTap:() {
                   _showCustomDialog(context, constrants.maxHeight, constrants.maxWidth);
                   verify = false;
-                  BackgroundMusicPlayer.playBackgroundMusic();},
+                  BackgroundMusicPlayer.playBackgroundMusic(0);},
                 child: Padding(
                   padding: EdgeInsets.only(top: constrants.maxHeight * 0.8),
                   child: Center(
@@ -185,7 +181,6 @@ void _showCustomDialog(BuildContext contextDialog, double maxHeight, double maxW
   }
   @override
   void dispose() {
-    BackgroundMusicPlayer.stopBackgroundMusic();
     super.dispose();
   }
 }

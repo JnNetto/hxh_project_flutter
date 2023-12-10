@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:hxh/app/core/utils/background_music.dart';
 
 class AppWidget extends StatefulWidget {
   const AppWidget({Key? key}) : super(key: key);
@@ -12,12 +13,14 @@ class _AppWidgetState extends State<AppWidget> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
+    BackgroundMusicPlayer.initialize();
     WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
+    BackgroundMusicPlayer.disposeBackgroundMusic();
     super.dispose();
   }
 
@@ -25,22 +28,22 @@ class _AppWidgetState extends State<AppWidget> with WidgetsBindingObserver {
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
 
-    // Aqui você pode verificar o estado do ciclo de vida do aplicativo
     switch (state) {
       case AppLifecycleState.inactive:
-        // O aplicativo está inativo
+        BackgroundMusicPlayer.pauseBackgroundMusic();
         break;
       case AppLifecycleState.paused:
-        // O aplicativo está em segundo plano
+        BackgroundMusicPlayer.pauseBackgroundMusic();
         break;
       case AppLifecycleState.resumed:
-        // O aplicativo está sendo retomado do segundo plano
+        BackgroundMusicPlayer.resumeBackgroundMusic();
         break;
       case AppLifecycleState.detached:
-        // O aplicativo está fechando
+        BackgroundMusicPlayer.stopBackgroundMusic();
         break;
       case AppLifecycleState.hidden:
-        // TODO: Handle this case.
+        BackgroundMusicPlayer.pauseBackgroundMusic();
+        break;
     }
   }
 
