@@ -91,13 +91,12 @@ class BackgroundMusicPlayer {
     }
   }
 
-  static Future<void> playBackgroundMusic(int time) async {
-    _player.setVolume(0.3);
-    _player.setLoopMode(LoopMode.one);
+  static Future<void> playBackgroundMusic(int time, {double? volume}) async {
+    await _player.setVolume(0.3);
+    await _player.setLoopMode(LoopMode.one);
     await _player.seek(Duration(seconds: time));
-    await Future.delayed(const Duration(seconds: 1), () {
-      _player.play();
-    });
+    await _player.play();
+    
   }
 
   static Future<void> stopBackgroundMusic() async {
@@ -114,7 +113,7 @@ class BackgroundMusicPlayer {
 
   static Future<void> changeBackgroundMusic(int? musicPath, int? time) async {
     await stopBackgroundMusic();
-    await loadMusic(musicPath!, time: time!);
+    loadMusic(musicPath!, time: time!);
     await playBackgroundMusic(time);
   }
 

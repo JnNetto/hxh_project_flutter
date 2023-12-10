@@ -20,7 +20,7 @@ class _SettingsDialogState extends State<SettingsDialog> {
     "hunting for you dream",
     "reason",
     "nagareboshi kirari",
-    "hyori ittai"
+    "hyori ittai",
     "soundtracks"
   ];
   final Map<String, int> musicDataInSeconds = {
@@ -96,71 +96,98 @@ class _SettingsDialogState extends State<SettingsDialog> {
       content: FractionallySizedBox(
         widthFactor: 0.7,
         heightFactor: 0.7,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            const Text('Selecione uma música', style: TextStyle(color: Colors.white)),
-            const SizedBox(height: 5,),
-            DropdownButton<String>(
-              value: null,
-              hint: Text('  $_musicSelected', style: const TextStyle(color: Colors.white),),
-              onChanged: (String? selectedMusic) {
-                setState(() {
-                  _musicIndex = _musicFiles.indexOf(selectedMusic!);
-                });
-                BackgroundMusicPlayer.changeBackgroundMusic(_musicIndex, 0);
-              },
-              items: _musicFiles.map((String music) {
-                return DropdownMenuItem<String>(
-                  value: music,
-                  child: Text(music),
-                );
-              }).toList(),
-            ),
-            const SizedBox(height: 30,),
-            const Text('Selecione uma soundtrack', style: TextStyle(color: Colors.white)),
-            const SizedBox(height: 5,),
-            DropdownButton<String>(
-              value: null,
-              hint: Text("  $_musicSelected", style: const TextStyle(color: Colors.white),),
-              onChanged: (String? selectedMusic) {
-                setState(() {
-                  _musicIndex = 6; 
-                });
-                BackgroundMusicPlayer.changeBackgroundMusic(_musicIndex, musicDataInSeconds[selectedMusic]);
-              },
-              items: musicDataInSeconds.keys.map((String musicName) {
-              return DropdownMenuItem<String>(
-                value: musicName,
-                child: Text(musicName),
-              );
-            }).toList(),
-            ),
-            const SizedBox(height: 20,),
-            const Text('Volume da música', style: TextStyle(color: Colors.white)),
-            Slider(
-              value: _volume,
-              onChanged: (newValue) {
-                setState(() {
-                  _volume = newValue;
-                });
-                BackgroundMusicPlayer.setVolume(newValue);
-              },
-              min: 0.0,
-              max: 1.0,
-              divisions: 100,
-              label: "${(_volume * 10).toInt()}",
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextButton(
-                child: const Text('Fechar', style: TextStyle(color: Colors.white)),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              const Text('Selecione uma música', style: TextStyle(color: Colors.white)),
+              const SizedBox(height: 5,),
+              SizedBox(
+                width: 350,
+                child: DropdownButton<String>(
+                  isExpanded: true,
+                  value: null,
+                  underline: Container(),
+                  icon: Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: const BoxDecoration(
+                      color: Colors.transparent, 
+                    ),
+                    child: const Icon(Icons.arrow_drop_down_rounded, color: Colors.blueGrey), // 
+                  ),
+                  hint: Text('  $_musicSelected', style: const TextStyle(color: Colors.white),),
+                  onChanged: (String? selectedMusic) {
+                    setState(() {
+                      _musicIndex = _musicFiles.indexOf(selectedMusic!);
+                    });
+                    BackgroundMusicPlayer.changeBackgroundMusic(_musicIndex, 0);
+                  },
+                  items: _musicFiles.map((String music) {
+                    return DropdownMenuItem<String>(
+                      value: music,
+                      child: Text(music),
+                    );
+                  }).toList(),
+                ),
               ),
-            ),
-          ],
+              const SizedBox(height: 30,),
+              const Text('Ou selecione uma soundtrack', style: TextStyle(color: Colors.white)),
+              const SizedBox(height: 5,),
+              SizedBox(
+                width: 350,
+                child: DropdownButton<String>(
+                  isExpanded: true,
+                  value: null,
+                  hint: Text("  $_musicSelected", style: const TextStyle(color: Colors.white),),
+                  underline: Container(),
+                  onChanged: (String? selectedMusic) {
+                    setState(() {
+                      _musicIndex = 6; 
+                    });
+                    BackgroundMusicPlayer.changeBackgroundMusic(_musicIndex, musicDataInSeconds[selectedMusic]);
+                  },
+                  icon: Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: const BoxDecoration(
+                      color: Colors.transparent, 
+                    ),
+                    child: const Icon(Icons.arrow_drop_down_rounded, color: Colors.blueGrey), // 
+                  ),
+                  items: musicDataInSeconds.keys.map((String musicName) {
+                  return DropdownMenuItem<String>(
+                    value: musicName,
+                    child: Text(musicName),
+                  );
+                }).toList(),
+                ),
+              ),
+              const SizedBox(height: 20,),
+              const Text('Volume da música', style: TextStyle(color: Colors.white)),
+              Slider(
+                value: _volume,
+                activeColor: Colors.blueGrey,
+                onChanged: (newValue) {
+                  setState(() {
+                    _volume = newValue;
+                  });
+                  BackgroundMusicPlayer.setVolume(newValue);
+                },
+                min: 0.0,
+                max: 1.0,
+                divisions: 100,
+                label: "${(_volume * 100).toInt()}",
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextButton(
+                  child: const Text('Fechar', style: TextStyle(color: Colors.white)),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
