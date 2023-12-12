@@ -13,7 +13,8 @@ class SettingsDialog extends StatefulWidget {
 class _SettingsDialogState extends State<SettingsDialog> {
   double _volume = BackgroundMusicPlayer.getVolume();
   int _musicIndex = BackgroundMusicPlayer.getMusicIndex();
-  final String _music = BackgroundMusicPlayer.getMusic();
+  String _music = BackgroundMusicPlayer.getMusic();
+
   final List<String> _musicFiles = [
     "departure",
     "just awake",
@@ -75,7 +76,6 @@ class _SettingsDialogState extends State<SettingsDialog> {
   
   
   get _musicSelected => _music;
- 
   
   @override
   void initState() {
@@ -118,6 +118,7 @@ class _SettingsDialogState extends State<SettingsDialog> {
                   hint: Text('  $_musicSelected', style: const TextStyle(color: Colors.white),),
                   onChanged: (String? selectedMusic) {
                     setState(() {
+                      _music = selectedMusic!;
                       _musicIndex = _musicFiles.indexOf(selectedMusic!);
                     });
                     BackgroundMusicPlayer.changeBackgroundMusic(_musicIndex, 0);
@@ -142,9 +143,12 @@ class _SettingsDialogState extends State<SettingsDialog> {
                   underline: Container(),
                   onChanged: (String? selectedMusic) {
                     setState(() {
+                      _music = selectedMusic!;
                       _musicIndex = 6; 
                     });
                     BackgroundMusicPlayer.changeBackgroundMusic(_musicIndex, musicDataInSeconds[selectedMusic]);
+                    setState(() {
+                    });
                   },
                   icon: Container(
                     padding: const EdgeInsets.all(8),

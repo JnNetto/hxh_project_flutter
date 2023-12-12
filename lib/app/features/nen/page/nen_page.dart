@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hxh/app/features/nen/controller/nen_controller.dart';
 import 'package:hxh/app/features/nen/model/nen_model.dart';
 import 'package:hxh/app/features/nen/datasource/nen_datasource_impl.dart';
@@ -11,7 +12,6 @@ class NenPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => _NenPageState();
 }
-String pathMusic = "assets/audio/departure.mp3";
 
 class _NenPageState extends State<NenPage> {
   final NenController _nenController = NenController(NenDataSourceImpl());
@@ -32,7 +32,17 @@ class _NenPageState extends State<NenPage> {
           'Nen Page',
           style: TextStyle(color: Colors.white),
         ),
-         automaticallyImplyLeading: true,
+        automaticallyImplyLeading: true,
+        leading: ElevatedButton(
+          onPressed:(){
+            Modular.to.pop();
+            Modular.to.pop();
+          },
+          style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 0, 0, 6))
+          ),
+          child: const Icon(Icons.arrow_back_outlined, color: Colors.white,)
+        ),
         actions: [
           ElevatedButton(
         onPressed: () {
@@ -40,7 +50,7 @@ class _NenPageState extends State<NenPage> {
               context: context,
               barrierDismissible: false,
               builder: (BuildContext context) {
-                return SettingsDialog();
+                return const SettingsDialog();
               },
             );
           },
@@ -67,6 +77,7 @@ class _NenPageState extends State<NenPage> {
         builder: (context, orientation) {
           return LayoutBuilder(
             builder: (context, constraints) {
+              bool isHorizontal = constraints.maxWidth > constraints.maxHeight;
               double contentHeight = orientation == Orientation.landscape ? constraints.maxHeight * 2.1 : constraints.maxHeight * 1.2;
               double fontSize = orientation == Orientation.landscape ? constraints.maxHeight * 2.1 : constraints.maxHeight * 0.85;
               return FutureBuilder<List<String>>(
@@ -79,7 +90,9 @@ class _NenPageState extends State<NenPage> {
                   } else {
                     final List<String> nenTitles = snapshot.data!;
                     List<Widget> rows = [];
-                    for (var i = 0; i < nenTitles.length; i += 2) {
+                    if(isHorizontal){
+                      rows.clear();
+                      for (var i = 0; i < nenTitles.length; i += 2) {
                       rows.add(
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -153,6 +166,41 @@ class _NenPageState extends State<NenPage> {
                         ),
                       );
                     }
+                    } else {
+                      rows.clear(); // Limpa a lista de linhas
+                      for (var i = 0; i < nenTitles.length; i++) {
+                        rows.add(
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: SizedBox(
+                              width: constraints.maxWidth * 0.8,
+                              height: contentHeight * 0.05,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  foregroundColor: Colors.black,
+                                  backgroundColor: const Color.fromARGB(255, 217, 217, 217),
+                                  elevation: 4,
+                                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                                ),
+                                onPressed: () {
+                                  Future<List<Nen>> _nenContent =
+                                      _nenController.getNenContent(titulo: nenTitles[i]);
+                                },
+                                child: Text(
+                                  nenTitles[i],
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(fontSize: fontSize * 0.025),
+                                ),
+                              ),
+                            ),
+                          ),
+                        );
+                      }
+                    }
+        
                     return Container(
                       width: double.infinity,
                       height: double.infinity,
@@ -163,9 +211,11 @@ class _NenPageState extends State<NenPage> {
                       ),
                     ),
                       child: Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: rows,
+                        child: SingleChildScrollView(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: rows,
+                          ),
                         ),
                       ),
                     );
