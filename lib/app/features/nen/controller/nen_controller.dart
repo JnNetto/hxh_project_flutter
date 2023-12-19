@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+
 import 'package:hxh/app/features/nen/model/nen_model.dart';
 
 import '../datasource/nen_datasource_impl.dart';
@@ -8,9 +8,13 @@ class NenController {
 
   NenController(this._dataSource);
 
+  List<Nen>? nenContent;
+  setNenContent(List<Nen>? value) => nenContent = value;
+
   Future<List<Nen>> getNenContent({required String titulo}) async {
     try {
-      final List<Nen> nenContent = await _dataSource.getNenContent(titulo: titulo) ?? [];
+      final List<Nen> nenContent = await _dataSource.getNenContent(titulo: titulo);
+      setNenContent(nenContent);
       return nenContent;
     } catch (e) {
       print('Erro ao buscar o conteúdo Nen: $e');
@@ -20,7 +24,7 @@ class NenController {
 
   Future<List<String>> getNenTitles() async {
     try {
-      List<String> titlesNen = await _dataSource.getNenTitles() ?? [];
+      List<String> titlesNen = await _dataSource.getNenTitles();
       return titlesNen;
     } catch (e) {
       print('Erro ao buscar os títulos do Nen: $e');

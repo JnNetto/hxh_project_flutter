@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:hxh/app/features/nen/controller/nen_controller.dart';
-import 'package:hxh/app/features/nen/model/nen_model.dart';
 import 'package:hxh/app/features/nen/datasource/nen_datasource_impl.dart';
 
 import '../../../core/utils/config_screen.dart';
@@ -16,6 +15,40 @@ class NenPage extends StatefulWidget {
 class _NenPageState extends State<NenPage> {
   final NenController _nenController = NenController(NenDataSourceImpl());
   late Future<List<String>> _nenTitles;
+
+  String removeDiacritics(String text) {
+  return text
+      .replaceAll('á', 'a')
+      .replaceAll('â', 'a')
+      .replaceAll('à', 'a')
+      .replaceAll('ã', 'a')
+      .replaceAll('é', 'e')
+      .replaceAll('ê', 'e')
+      .replaceAll('í', 'i')
+      .replaceAll('ó', 'o')
+      .replaceAll('ô', 'o')
+      .replaceAll('õ', 'o')
+      .replaceAll('ú', 'u')
+      .replaceAll('ü', 'u')
+      .replaceAll('ç', 'c')
+      ;
+}
+
+  String toCamelCase(String text) {
+  var textWithouDiacritics = removeDiacritics(text);
+  List<String> words = textWithouDiacritics.split(' ');
+  String result = '';
+  
+  for (int i = 0; i < words.length; i++) {
+    String word = words[i];
+    if (i == 0) {
+      result += word.toLowerCase();
+    } else {
+      result += word[0].toUpperCase() + word.substring(1).toLowerCase();
+    }
+  }
+  return result;
+}
 
   @override
   void initState() {
@@ -41,7 +74,7 @@ class _NenPageState extends State<NenPage> {
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 0, 0, 6))
           ),
-          child: const Icon(Icons.arrow_back_outlined, color: Colors.white,)
+          child: const Center(child: Icon(Icons.arrow_back_outlined, color: Colors.white,))
         ),
         actions: [
           ElevatedButton(
@@ -115,14 +148,16 @@ class _NenPageState extends State<NenPage> {
                                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                                     ),
                                     onPressed: () {
-                                      Future<List<Nen>> _nenContent =
-                                          _nenController.getNenContent(titulo: nenTitles[i]);
+                                      var way = toCamelCase(nenTitles[i]);
+                                      Modular.to.pushNamed("/nenPage/$way");
                                     },
-                                    child: Text(
-                                      nenTitles[i],
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontSize: fontSize * 0.025
+                                    child: Center(
+                                      child: Text(
+                                        nenTitles[i],
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: fontSize * 0.025
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -148,14 +183,18 @@ class _NenPageState extends State<NenPage> {
                                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                                     ),
                                     onPressed: () {
-                                      Future<List<Nen>> _nenContent = _nenController
-                                          .getNenContent(titulo: nenTitles[i + 1]);
+                                      // Future<List<Nen>> _nenContent = _nenController
+                                      //     .getNenContent(titulo: nenTitles[i + 1]);
+                                      var way = toCamelCase(nenTitles[i]);
+                                      Modular.to.pushNamed("/nenPage/$way");
                                     },
-                                    child: Text(
-                                      nenTitles[i + 1],
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(
-                                        fontSize: fontSize * 0.025
+                                    child: Center(
+                                      child: Text(
+                                        nenTitles[i + 1],
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontSize: fontSize * 0.025
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -186,13 +225,17 @@ class _NenPageState extends State<NenPage> {
                                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                                 ),
                                 onPressed: () {
-                                  Future<List<Nen>> _nenContent =
-                                      _nenController.getNenContent(titulo: nenTitles[i]);
+                                  // Future<List<Nen>> _nenContent =
+                                  //     _nenController.getNenContent(titulo: nenTitles[i]);
+                                  var way = toCamelCase(nenTitles[i]);
+                                  Modular.to.pushNamed("/nenPage/$way");
                                 },
-                                child: Text(
-                                  nenTitles[i],
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(fontSize: fontSize * 0.025),
+                                child: Center(
+                                  child: Text(
+                                    nenTitles[i],
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(fontSize: fontSize * 0.025),
+                                  ),
                                 ),
                               ),
                             ),

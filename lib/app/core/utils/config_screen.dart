@@ -119,7 +119,7 @@ class _SettingsDialogState extends State<SettingsDialog> {
                   onChanged: (String? selectedMusic) {
                     setState(() {
                       _music = selectedMusic!;
-                      _musicIndex = _musicFiles.indexOf(selectedMusic!);
+                      _musicIndex = _musicFiles.indexOf(selectedMusic);
                     });
                     BackgroundMusicPlayer.changeBackgroundMusic(_musicIndex, 0);
                   },
@@ -170,11 +170,11 @@ class _SettingsDialogState extends State<SettingsDialog> {
               Slider(
                 value: _volume,
                 activeColor: Colors.blueGrey,
-                onChanged: (newValue) {
+                onChanged: (volume) {
                   setState(() {
-                    _volume = newValue;
+                    _volume = volume;
                   });
-                  BackgroundMusicPlayer.setVolume(newValue);
+                  BackgroundMusicPlayer.setVolume(volume);
                 },
                 min: 0.0,
                 max: 1.0,

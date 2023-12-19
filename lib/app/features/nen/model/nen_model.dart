@@ -2,9 +2,9 @@ import 'dart:convert';
 
 class Nen {
 
-  final String? titulo;
-  final List? content;
-  final List? images;
+  final String titulo;
+  final List content;
+  final List images;
 
   Nen({required this.titulo, required this.content, required this.images,});
 
@@ -38,9 +38,10 @@ class Nen {
 
   factory Nen.fromMap(Map<String, dynamic> map) {
     return Nen(
-      content: map['content'] as List?,
-      images: map['images'] as List?,
-      titulo: map['titulo'] as String?,
+      content: map['content'] as List,
+      images: map['images'] as List,
+      titulo: map['titulo'] as String,
     );
   }
+
 }

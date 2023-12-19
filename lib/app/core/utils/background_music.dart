@@ -4,6 +4,7 @@ class BackgroundMusicPlayer {
   static late AudioPlayer _player;
   static late int _musicIndex;
   static late String _music;
+  static double _volume = 0.3;
   static final List<String> _musicFiles = [
     "departure",
     "just awake",
@@ -91,8 +92,8 @@ class BackgroundMusicPlayer {
     }
   }
 
-  static Future<void> playBackgroundMusic(int time, {double? volume}) async {
-    await _player.setVolume(0.3);
+  static Future<void> playBackgroundMusic(int time) async {
+    await _player.setVolume(getVolume());
     await _player.setLoopMode(LoopMode.one);
     await _player.seek(Duration(seconds: time));
     await _player.play();
@@ -118,11 +119,12 @@ class BackgroundMusicPlayer {
   }
 
   static void setVolume(double volume) {
+    _volume = volume;
     _player.setVolume(volume);
   }
 
   static double getVolume() {
-    return 0.3;
+    return _volume;
   }
 
   static disposeBackgroundMusic() {

@@ -100,7 +100,7 @@ void _showMenu(BuildContext contextDialog, double maxHeight, double maxWidth) {
   void initState() {
     BackgroundMusicPlayer.loadMusic(0);
     super.initState();
-    BackgroundMusicPlayer.playBackgroundMusic(0);
+    
     Timer.periodic(const Duration(milliseconds: 500),(timer){
       setState(() {
         _isVisible = !_isVisible;
@@ -156,6 +156,7 @@ void _showMenu(BuildContext contextDialog, double maxHeight, double maxWidth) {
               visible: verify,
               child: GestureDetector(
                 onTap:() {
+                  BackgroundMusicPlayer.playBackgroundMusic(0);
                   _showMenu(context, constrants.maxHeight, constrants.maxWidth);
                   verify = false;
                   },
