@@ -19,7 +19,7 @@ class _AppWidgetState extends State<AppWidget> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-    _startTimer();
+    // _startTimer();
     BackgroundMusicPlayer.initialize();
     WidgetsBinding.instance.addObserver(this);
   }
@@ -47,19 +47,12 @@ class _AppWidgetState extends State<AppWidget> with WidgetsBindingObserver {
   
   @override
   void dispose() {
-    _timer.cancel();
+    // _timer.cancel();
     WidgetsBinding.instance.removeObserver(this);
     BackgroundMusicPlayer.disposeBackgroundMusic();
     super.dispose();
   }
 
-  // @override
-  // void didChangeMetrics() {
-  //   super.didChangeMetrics();
-  //   setState(() {
-  //     //LEMBRAR DA IDEIA QUE EU TIVE, TODA VEZ QUE A ORIENTAÇÃO MUDAR, A FUNÇÃO QUE A IMAGEM ESTÁ BUGANDO DEVE FECHAR, QUANDO INTERAGIDA TBM DVE FECHAR, PRA EVITAR O BUG E CONSEGUIR USAR O TIMER
-  //   });
-  // }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
@@ -85,7 +78,7 @@ class _AppWidgetState extends State<AppWidget> with WidgetsBindingObserver {
         BackgroundMusicPlayer.stopBackgroundMusic();
         break;
       case AppLifecycleState.hidden:
-        BackgroundMusicPlayer.pauseBackgroundMusic();
+        // BackgroundMusicPlayer.pauseBackgroundMusic();
         break;
     }
   }

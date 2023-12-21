@@ -17,7 +17,6 @@ class NenController {
       setNenContent(nenContent);
       return nenContent;
     } catch (e) {
-      print('Erro ao buscar o conteúdo Nen: $e');
       return [];
     }
   }
@@ -27,7 +26,6 @@ class NenController {
       List<String> titlesNen = await _dataSource.getNenTitles();
       return titlesNen;
     } catch (e) {
-      print('Erro ao buscar os títulos do Nen: $e');
       throw Exception('Erro ao buscar os títulos do Nen');
     }
   }

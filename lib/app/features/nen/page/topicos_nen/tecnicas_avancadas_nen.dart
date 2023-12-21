@@ -4,16 +4,16 @@ import 'package:flutter_modular/flutter_modular.dart';
 import '../../../../core/utils/config_screen.dart';
 import '../../controller/nen_controller.dart';
 
-class NenEAura extends StatefulWidget{
+class TecnicasAvancadasNen extends StatefulWidget{
   final NenController controller;
 
-  const NenEAura({Key? key, required this.controller}) : super(key: key);
+  const TecnicasAvancadasNen({Key? key, required this.controller}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _NenEAuraState();
+  State<StatefulWidget> createState() => _TecnicasAvancadasNenState();
 }
 
-class _NenEAuraState extends State<NenEAura>{
+class _TecnicasAvancadasNenState extends State<TecnicasAvancadasNen>{
   late NenController _controller;
 
   @override
@@ -24,7 +24,7 @@ class _NenEAuraState extends State<NenEAura>{
   }
 
   Future<void> _initializeData() async {
-    await _controller.getNenContent(titulo: "Nen e Aura");
+    await _controller.getNenContent(titulo: "Técnicas avançadas do Nen");
     setState(() {});
   }
 
@@ -34,7 +34,7 @@ class _NenEAuraState extends State<NenEAura>{
       appBar: AppBar(
         centerTitle: true,
         title: const Text(
-          'Nen e Aura',
+          'Técnicas avançadas do Nen',
           style: TextStyle(color: Colors.white),
         ),
         automaticallyImplyLeading: true,
@@ -86,7 +86,53 @@ class _NenEAuraState extends State<NenEAura>{
                 color: Colors.black,
               ),
               ...widget.controller.nenContent!.map((conteudo){
+                bool isHorizontal = constraints.maxWidth > constraints.maxHeight;
                 double fontSize = 17;
+                List<Widget> contentRepeated = [];
+                for (var i = 0; i < 7; i++) {
+                  contentRepeated.add(
+                    Column(
+                      children: [
+                        const SizedBox(height: 30),
+                        Text(
+                          conteudo.content[i + 1],
+                          style: TextStyle(
+                            color: const Color.fromRGBO(255, 255, 255, 1),
+                            fontSize: fontSize,
+                          ),
+                        ),
+                        const SizedBox(height: 5),
+                        SizedBox(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: MediaQuery.of(context).size.width,
+                                height: isHorizontal
+                                    ? MediaQuery.of(context).size.height * 0.8
+                                    : MediaQuery.of(context).size.height * 0.3,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: ExactAssetImage(conteudo.images[i]),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 5),
+                              Text(
+                                conteudo.images[i + 7],
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  color: Color.fromARGB(255, 255, 252, 252),
+                                  fontSize: 11,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                }
                 return SingleChildScrollView(
                   child: Center(
                     child: FractionallySizedBox(
@@ -95,55 +141,7 @@ class _NenEAuraState extends State<NenEAura>{
                         children: [
                           const SizedBox(height: 30,),
                           Text(conteudo.content[0], style: TextStyle(color: const Color.fromRGBO(255, 255, 255, 1), fontSize: fontSize),),
-                          const SizedBox(height: 10,),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Expanded(
-                                flex: 1,
-                                child: Text(
-                                  conteudo.content[1],
-                                  style: TextStyle(color: Colors.white, fontSize: fontSize),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: Image.asset(
-                                  conteudo.images[0],
-                                  width: 205,
-                                  height: 110,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 10,),
-                          Text(conteudo.content[2], style: TextStyle(color: const Color.fromRGBO(255, 255, 255, 1), fontSize: fontSize),),
-                          const SizedBox(height: 10,),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Expanded(
-                                flex: 1,
-                                child: Image.asset(
-                                  conteudo.images[1],
-                                  width: 200,
-                                  height: 200,
-                                ),
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: Text(
-                                  conteudo.content[3],
-                                  style: TextStyle(color: Colors.white, fontSize: fontSize),
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 10,),
-                          Text(conteudo.content[4], style: TextStyle(color: const Color.fromRGBO(255, 255, 255, 1), fontSize: fontSize),),
-                          const SizedBox(height: 10,),
-                          Text(conteudo.content[5], style: TextStyle(color: const Color.fromRGBO(255, 255, 255, 1), fontSize: fontSize),),
-                          const SizedBox(height: 30,),
+                          ...contentRepeated
                         ],
                       ),
                     )

@@ -81,7 +81,6 @@ class _NenPageState extends State<NenPage> {
         onPressed: () {
           showDialog(
               context: context,
-              barrierDismissible: false,
               builder: (BuildContext context) {
                 return const SettingsDialog();
               },
@@ -151,10 +150,11 @@ class _NenPageState extends State<NenPage> {
                                       var way = toCamelCase(nenTitles[i]);
                                       Modular.to.pushNamed("/nenPage/$way");
                                     },
-                                    child: Center(
+                                    child: FittedBox(
+                                      fit: BoxFit.scaleDown,
                                       child: Text(
                                         nenTitles[i],
-                                        textAlign: TextAlign.center,
+                                        
                                         style: TextStyle(
                                           fontSize: fontSize * 0.025
                                         ),
@@ -185,13 +185,14 @@ class _NenPageState extends State<NenPage> {
                                     onPressed: () {
                                       // Future<List<Nen>> _nenContent = _nenController
                                       //     .getNenContent(titulo: nenTitles[i + 1]);
-                                      var way = toCamelCase(nenTitles[i]);
+                                      var way = toCamelCase(nenTitles[i + 1]);
                                       Modular.to.pushNamed("/nenPage/$way");
                                     },
-                                    child: Center(
+                                    child: FittedBox(
+                                      fit: BoxFit.scaleDown,
                                       child: Text(
                                         nenTitles[i + 1],
-                                        textAlign: TextAlign.center,
+                                       
                                         style: TextStyle(
                                           fontSize: fontSize * 0.025
                                         ),
@@ -230,10 +231,10 @@ class _NenPageState extends State<NenPage> {
                                   var way = toCamelCase(nenTitles[i]);
                                   Modular.to.pushNamed("/nenPage/$way");
                                 },
-                                child: Center(
+                                child: FittedBox(
+                                  fit: BoxFit.scaleDown,
                                   child: Text(
-                                    nenTitles[i],
-                                    textAlign: TextAlign.center,
+                                    nenTitles[i],                                   
                                     style: TextStyle(fontSize: fontSize * 0.025),
                                   ),
                                 ),

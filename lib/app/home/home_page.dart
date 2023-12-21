@@ -100,7 +100,7 @@ void _showMenu(BuildContext contextDialog, double maxHeight, double maxWidth) {
   void initState() {
     BackgroundMusicPlayer.loadMusic(0);
     super.initState();
-    
+    // BackgroundMusicPlayer.playBackgroundMusic(0);
     Timer.periodic(const Duration(milliseconds: 500),(timer){
       setState(() {
         _isVisible = !_isVisible;
@@ -115,8 +115,7 @@ void _showMenu(BuildContext contextDialog, double maxHeight, double maxWidth) {
       floatingActionButton: ElevatedButton(
         onPressed: () {
           showDialog(
-              context: context,
-              barrierDismissible: false,
+              context: context,             
               builder: (BuildContext context) {
                 return const SettingsDialog();
               },
@@ -124,7 +123,7 @@ void _showMenu(BuildContext contextDialog, double maxHeight, double maxWidth) {
           },
         style: ElevatedButton.styleFrom(
           padding: EdgeInsets.zero,
-          backgroundColor: const Color.fromARGB(0, 28, 73, 5),
+          backgroundColor: Colors.black,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12.0), 
               ),
@@ -135,7 +134,7 @@ void _showMenu(BuildContext contextDialog, double maxHeight, double maxWidth) {
               ),
           child: const Padding(
             padding: EdgeInsets.all(8.0),
-            child: Icon(Icons.settings),
+            child: Icon(Icons.settings, color: Colors.white,),
               ),
             ),),
       body: LayoutBuilder(builder: (context, constrants){
@@ -147,8 +146,8 @@ void _showMenu(BuildContext contextDialog, double maxHeight, double maxWidth) {
             Container(
               decoration: const BoxDecoration(
               image: DecorationImage(
-              fit: BoxFit.cover,
-              image: ExactAssetImage('assets/images/fundo2.png'),
+              // fit: BoxFit.cover,
+              image: ExactAssetImage('assets/images/fundoHome2.png'),
             ),
           ),
             ),

@@ -4,23 +4,37 @@ import 'package:flutter_modular/flutter_modular.dart';
 import '../../../../core/utils/config_screen.dart';
 import '../../controller/nen_controller.dart';
 
-class NenEAprendizado extends StatefulWidget{
+class AprendizadoNen extends StatefulWidget{
   final NenController controller;
 
-  const NenEAprendizado({super.key, required this.controller});
+  const AprendizadoNen({Key? key, required this.controller}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _NenEAprendizadoState();
+  State<StatefulWidget> createState() => _AprendizadoNenState();
 }
 
-class _NenEAprendizadoState extends State<NenEAprendizado>{
+class _AprendizadoNenState extends State<AprendizadoNen>{
+  late NenController _controller;
+
+  @override
+  void initState() {
+   super.initState();
+    _controller = widget.controller;
+    _initializeData();
+  }
+
+  Future<void> _initializeData() async {
+    await _controller.getNenContent(titulo: "Aprendizado do Nen");
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context){
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: const Text(
-          'Nen Page',
+          'Aprendizado do Nen',
           style: TextStyle(color: Colors.white),
         ),
         automaticallyImplyLeading: true,
@@ -38,7 +52,6 @@ class _NenEAprendizadoState extends State<NenEAprendizado>{
         onPressed: () {
           showDialog(
               context: context,
-              barrierDismissible: false,
               builder: (BuildContext context) {
                 return const SettingsDialog();
               },
@@ -63,21 +76,56 @@ class _NenEAprendizadoState extends State<NenEAprendizado>{
         ],
         backgroundColor: const Color.fromARGB(255, 0, 0, 6),
       ),
-      body: Stack(
-        children: [
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            color: Colors.black,
-          ),
-          Center(
-            child: Column(
-              children: [
-                
-              ],
-            ))
-        ],
-      ),
+      body: LayoutBuilder(
+        builder: (context, constraints){
+          return Stack(
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+                color: Colors.black,
+              ),
+              ...widget.controller.nenContent!.map((conteudo){
+                bool isHorizontal = constraints.maxWidth > constraints.maxHeight;
+                double fontSize = 17;
+                return SingleChildScrollView(
+                  child: Center(
+                    child: FractionallySizedBox(
+                      widthFactor: 0.9,
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 30,),
+                          Text(conteudo.content[0], style: TextStyle(color: const Color.fromRGBO(255, 255, 255, 1), fontSize: fontSize),),
+                          const SizedBox(height: 10,),
+                          Text(conteudo.content[1], style: TextStyle(color: const Color.fromRGBO(255, 255, 255, 1), fontSize: fontSize),),
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: isHorizontal ? MediaQuery.of(context).size.height * .8: MediaQuery.of(context).size.height*.3,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                              image: ExactAssetImage(conteudo.images[0]),
+                            ),
+                          ),
+                          ),
+                          const SizedBox(height: 10,),                         
+                          Text(conteudo.content[2], style: TextStyle(color: const Color.fromRGBO(255, 255, 255, 1), fontSize: fontSize),),
+                          const SizedBox(height: 10,),
+                          Text(conteudo.content[3], style: TextStyle(color: const Color.fromRGBO(255, 255, 255, 1), fontSize: fontSize),),
+                          const SizedBox(height: 10,),
+                          Text(conteudo.content[4], style: TextStyle(color: const Color.fromRGBO(255, 255, 255, 1), fontSize: fontSize),),
+                          const SizedBox(height: 10,),
+                          Text(conteudo.content[5], style: TextStyle(color: const Color.fromRGBO(255, 255, 255, 1), fontSize: fontSize),),
+                          const SizedBox(height: 30,),
+                        ],
+                      ),
+                    )
+                  ),
+                );
+              }).toList()
+            ],
+          );  
+        },
+      )
     );
   }
 }
