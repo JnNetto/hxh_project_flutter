@@ -87,7 +87,25 @@ class _PropriedadesERelacoesNenState extends State<PropriedadesERelacoesNen>{
               ),
               ...widget.controller.nenContent!.map((conteudo){
                 bool isHorizontal = constraints.maxWidth > constraints.maxHeight;
-                double fontSize = 17;
+                double fontTitleSize = 22;
+                double fontTextSize = 17;
+                Widget text(int number){
+                  return Text(conteudo.content[number], style: TextStyle(color: Colors.white, fontSize: fontTextSize, fontFamily: 'SM'),);
+                  }
+                Widget title(int number){
+                  return Text(conteudo.titulos[number], style: TextStyle(color: Colors.white, fontSize: fontTitleSize, fontFamily: 'SM'),);
+                  }
+                Widget image(int number){
+                  return Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: isHorizontal ? MediaQuery.of(context).size.height * .8: MediaQuery.of(context).size.height*.3,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                            image: ExactAssetImage(conteudo.images[number]),
+                          ),
+                        ),
+                      );
+                  }
                 return SingleChildScrollView(
                   child: Center(
                     child: FractionallySizedBox(
@@ -95,35 +113,23 @@ class _PropriedadesERelacoesNenState extends State<PropriedadesERelacoesNen>{
                       child: Column(
                         children: [
                           const SizedBox(height: 30,),
-                          Text(conteudo.content[0], style: TextStyle(color: const Color.fromRGBO(255, 255, 255, 1), fontSize: fontSize),),
+                          title(1),
                           const SizedBox(height: 5,),
-                          GestureDetector(                           
-                            child: Container(
-                              width: MediaQuery.of(context).size.width,
-                              height: isHorizontal ? MediaQuery.of(context).size.height * .8: MediaQuery.of(context).size.height*.3,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                image: ExactAssetImage(conteudo.images[0]),
-                              ),
-                            ),
-                            ),
-                          ),
-   
-                          Text(conteudo.content[1], style: TextStyle(color: const Color.fromRGBO(255, 255, 255, 1), fontSize: fontSize),),
+                          text(0),
+                          const SizedBox(height: 5,),
+                          image(0),   
                           const SizedBox(height: 10,),
-                          Text(conteudo.content[2], style: TextStyle(color: const Color.fromRGBO(255, 255, 255, 1), fontSize: fontSize),),
+                          title(2),
+                          const SizedBox(height: 5,),
+                          text(1),
+                          const SizedBox(height: 20,),
+                          title(3),
+                          const SizedBox(height: 5,),
+                          text(2),
                           const SizedBox(height: 10,),
-                          Text(conteudo.content[3], style: TextStyle(color: const Color.fromRGBO(255, 255, 255, 1), fontSize: fontSize),),
+                          text(3),
                           const SizedBox(height: 10,),
-                          Container(
-                            width: MediaQuery.of(context).size.width,
-                            height: isHorizontal ? MediaQuery.of(context).size.height * .8: MediaQuery.of(context).size.height*.3,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(                            
-                              image: ExactAssetImage(conteudo.images[1]),
-                            ),
-                          ),
-                          ),
+                          image(1)
                         ],
                       ),
                     )

@@ -69,7 +69,6 @@ class _NenPageState extends State<NenPage> {
         leading: ElevatedButton(
           onPressed:(){
             Modular.to.pop();
-            Modular.to.pop();
           },
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all<Color>(const Color.fromARGB(255, 0, 0, 6))
@@ -207,7 +206,7 @@ class _NenPageState extends State<NenPage> {
                       );
                     }
                     } else {
-                      rows.clear(); // Limpa a lista de linhas
+                      rows.clear();
                       for (var i = 0; i < nenTitles.length; i++) {
                         rows.add(
                           Padding(

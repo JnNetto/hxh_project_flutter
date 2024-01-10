@@ -87,7 +87,25 @@ class _TiposDeNenState extends State<TiposDeNen>{
               ),
               ...widget.controller.nenContent!.map((conteudo){
                 bool isHorizontal = constraints.maxWidth > constraints.maxHeight;
-                double fontSize = 17;
+                double fontTitleSize = 22;
+                double fontTextSize = 17;
+                Widget text(int number){
+                  return Text(conteudo.content[number], style: TextStyle(color: Colors.white, fontSize: fontTextSize, fontFamily: 'SM'),);
+                  }
+                Widget title(int number){
+                  return Text(conteudo.titulos[number], style: TextStyle(color: Colors.white, fontSize: fontTitleSize, fontFamily: 'SM'),);
+                  }
+                Widget image(int number){
+                  return Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: isHorizontal ? MediaQuery.of(context).size.height * .8: MediaQuery.of(context).size.height*.3,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                            image: ExactAssetImage(conteudo.images[number]),
+                          ),
+                        ),
+                      );
+                  }
                 return SingleChildScrollView(
                   child: Center(
                     child: FractionallySizedBox(
@@ -95,89 +113,43 @@ class _TiposDeNenState extends State<TiposDeNen>{
                       child: Column(
                         children: [
                           const SizedBox(height: 30,),
-                          Text(conteudo.content[0], style: TextStyle(color: const Color.fromRGBO(255, 255, 255, 1), fontSize: fontSize),),
-                          const SizedBox(height: 5,),
-                          Container(
-                            width: MediaQuery.of(context).size.width,
-                            height: isHorizontal ? MediaQuery.of(context).size.height * .8: MediaQuery.of(context).size.height*.3,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(                            
-                              image: ExactAssetImage(conteudo.images[0]),
-                            ),
-                          ),
-                          ),
-                          const SizedBox(height: 5,),
-                          Text(conteudo.content[1], style: TextStyle(color: const Color.fromRGBO(255, 255, 255, 1), fontSize: fontSize),),
+                          text(0),
                           const SizedBox(height: 30,),
-                          Text(conteudo.content[2], style: TextStyle(color: const Color.fromRGBO(255, 255, 255, 1), fontSize: fontSize),),
+                          title(1),
                           const SizedBox(height: 5,),
-                          Container(
-                            width: MediaQuery.of(context).size.width,
-                            height: isHorizontal ? MediaQuery.of(context).size.height * .8: MediaQuery.of(context).size.height*.3,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(                            
-                              image: ExactAssetImage(conteudo.images[1]),
-                            ),
-                          ),
-                          ),
+                          image(0),
                           const SizedBox(height: 5,),
-                          Text(conteudo.content[3], style: TextStyle(color: const Color.fromRGBO(255, 255, 255, 1), fontSize: fontSize),),
+                          text(1),
                           const SizedBox(height: 30,),
-                          Text(conteudo.content[4], style: TextStyle(color: const Color.fromRGBO(255, 255, 255, 1), fontSize: fontSize),),
+                          title(2),
                           const SizedBox(height: 5,),
-                          Container(
-                            width: MediaQuery.of(context).size.width,
-                            height: isHorizontal ? MediaQuery.of(context).size.height * .8: MediaQuery.of(context).size.height*.3,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(                            
-                              image: ExactAssetImage(conteudo.images[2]),
-                            ),
-                          ),
-                          ),
+                          image(1),
                           const SizedBox(height: 5,),
-                          Text(conteudo.content[5], style: TextStyle(color: const Color.fromRGBO(255, 255, 255, 1), fontSize: fontSize),),
+                          text(2),
                           const SizedBox(height: 30,),
-                          Text(conteudo.content[6], style: TextStyle(color: const Color.fromRGBO(255, 255, 255, 1), fontSize: fontSize),),
+                          title(3),
                           const SizedBox(height: 5,),
-                          Container(
-                            width: MediaQuery.of(context).size.width,
-                            height: isHorizontal ? MediaQuery.of(context).size.height * .8: MediaQuery.of(context).size.height*.3,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(                            
-                              image: ExactAssetImage(conteudo.images[3]),
-                            ),
-                          ),
-                          ),
+                          image(2),
                           const SizedBox(height: 5,),
-                          Text(conteudo.content[7], style: TextStyle(color: const Color.fromRGBO(255, 255, 255, 1), fontSize: fontSize),),
+                          text(3),
                           const SizedBox(height: 30,),
-                          Text(conteudo.content[8], style: TextStyle(color: const Color.fromRGBO(255, 255, 255, 1), fontSize: fontSize),),
+                          title(4),
                           const SizedBox(height: 5,),
-                          Container(
-                            width: MediaQuery.of(context).size.width,
-                            height: isHorizontal ? MediaQuery.of(context).size.height * .8: MediaQuery.of(context).size.height*.3,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(                            
-                              image: ExactAssetImage(conteudo.images[4]),
-                            ),
-                          ),
-                          ),
+                          image(3),
                           const SizedBox(height: 5,),
-                          Text(conteudo.content[9], style: TextStyle(color: const Color.fromRGBO(255, 255, 255, 1), fontSize: fontSize),),
+                          text(4),
                           const SizedBox(height: 30,),
-                          Text(conteudo.content[10], style: TextStyle(color: const Color.fromRGBO(255, 255, 255, 1), fontSize: fontSize),),
+                          title(5),
                           const SizedBox(height: 5,),
-                          Container(
-                            width: MediaQuery.of(context).size.width,
-                            height: isHorizontal ? MediaQuery.of(context).size.height * .8: MediaQuery.of(context).size.height*.3,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(                            
-                              image: ExactAssetImage(conteudo.images[5]),
-                            ),
-                          ),
-                          ),
+                          image(4),
                           const SizedBox(height: 5,),
-                          Text(conteudo.content[11], style: TextStyle(color: const Color.fromRGBO(255, 255, 255, 1), fontSize: fontSize),),
+                          text(5),
+                          const SizedBox(height: 30,),
+                          title(6),
+                          const SizedBox(height: 5,),
+                          image(5),
+                          const SizedBox(height: 5,),
+                          text(6),
                           const SizedBox(height: 30,),
                         ],
                       ),

@@ -86,7 +86,22 @@ class _NenEAuraState extends State<NenEAura>{
                 color: Colors.black,
               ),
               ...widget.controller.nenContent!.map((conteudo){
-                double fontSize = 17;
+                bool isHorizontal = constraints.maxWidth > constraints.maxHeight;
+                double fontTextSize = 17;
+                Widget text(int number){
+                  return Text(conteudo.content[number], style: TextStyle(color: Colors.white, fontSize: fontTextSize, fontFamily: 'SM'),);
+                  }
+                Widget image(int number){
+                  return Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: isHorizontal ? MediaQuery.of(context).size.height * .8: MediaQuery.of(context).size.height*.3,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                            image: ExactAssetImage(conteudo.images[number]),
+                          ),
+                        ),
+                      );
+                  }
                 return SingleChildScrollView(
                   child: Center(
                     child: FractionallySizedBox(
@@ -94,17 +109,14 @@ class _NenEAuraState extends State<NenEAura>{
                       child: Column(
                         children: [
                           const SizedBox(height: 30,),
-                          Text(conteudo.content[0], style: TextStyle(color: const Color.fromRGBO(255, 255, 255, 1), fontSize: fontSize),),
+                          text(0),
                           const SizedBox(height: 10,),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Expanded(
                                 flex: 1,
-                                child: Text(
-                                  conteudo.content[1],
-                                  style: TextStyle(color: Colors.white, fontSize: fontSize),
-                                ),
+                                child: text(1),
                               ),
                               Expanded(
                                 flex: 1,
@@ -117,32 +129,15 @@ class _NenEAuraState extends State<NenEAura>{
                             ],
                           ),
                           const SizedBox(height: 10,),
-                          Text(conteudo.content[2], style: TextStyle(color: const Color.fromRGBO(255, 255, 255, 1), fontSize: fontSize),),
+                          text(2),
                           const SizedBox(height: 10,),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Expanded(
-                                flex: 1,
-                                child: Image.asset(
-                                  conteudo.images[1],
-                                  width: 200,
-                                  height: 200,
-                                ),
-                              ),
-                              Expanded(
-                                flex: 1,
-                                child: Text(
-                                  conteudo.content[3],
-                                  style: TextStyle(color: Colors.white, fontSize: fontSize),
-                                ),
-                              ),
-                            ],
-                          ),
+                          image(1),
                           const SizedBox(height: 10,),
-                          Text(conteudo.content[4], style: TextStyle(color: const Color.fromRGBO(255, 255, 255, 1), fontSize: fontSize),),
+                          text(3),
                           const SizedBox(height: 10,),
-                          Text(conteudo.content[5], style: TextStyle(color: const Color.fromRGBO(255, 255, 255, 1), fontSize: fontSize),),
+                          text(4),
+                          const SizedBox(height: 10,),
+                          text(5),
                           const SizedBox(height: 30,),
                         ],
                       ),

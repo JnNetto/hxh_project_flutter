@@ -19,7 +19,7 @@ class _AppWidgetState extends State<AppWidget> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-    // _startTimer();
+    _startTimer();
     BackgroundMusicPlayer.initialize();
     WidgetsBinding.instance.addObserver(this);
   }
@@ -47,7 +47,7 @@ class _AppWidgetState extends State<AppWidget> with WidgetsBindingObserver {
   
   @override
   void dispose() {
-    // _timer.cancel();
+    _timer.cancel();
     WidgetsBinding.instance.removeObserver(this);
     BackgroundMusicPlayer.disposeBackgroundMusic();
     super.dispose();
@@ -62,7 +62,7 @@ class _AppWidgetState extends State<AppWidget> with WidgetsBindingObserver {
         BackgroundMusicPlayer.pauseBackgroundMusic();
         break;
       case AppLifecycleState.paused:
-        BackgroundMusicPlayer.pauseBackgroundMusic();
+        // BackgroundMusicPlayer.pauseBackgroundMusic();
         break;
       case AppLifecycleState.resumed:
         BackgroundMusicPlayer.resumeBackgroundMusic();
@@ -87,15 +87,14 @@ class _AppWidgetState extends State<AppWidget> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
     Modular.setNavigatorKey(navigatorKey);
-    Modular.setInitialRoute('/home');
+    Modular.setInitialRoute('/splash');
     return MaterialApp.router(
       title: 'HxH',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
         colorSchemeSeed: const Color(0xFF1b8853),
-      ),
-      
+      ),     
       routeInformationParser: Modular.routeInformationParser,
       routerDelegate: Modular.routerDelegate,
     );

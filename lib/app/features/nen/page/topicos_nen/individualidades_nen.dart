@@ -88,7 +88,25 @@ class _IndividualidadesNenState extends State<IndividualidadesNen>{
               ),
               ...widget.controller.nenContent!.map((conteudo){
                 bool isHorizontal = constraints.maxWidth > constraints.maxHeight;
-                double fontSize = 17;
+                double fontTitleSize = 22;
+                double fontTextSize = 17;
+                Widget text(int number){
+                  return Text(conteudo.content[number], style: TextStyle(color: Colors.white, fontSize: fontTextSize, fontFamily: 'SM'),);
+                }
+                Widget title(int number){
+                  return Text(conteudo.titulos[number], style: TextStyle(color: Colors.white, fontSize: fontTitleSize, fontFamily: 'SM'),);
+                  }
+                                  Widget image(int number){
+                  return Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: isHorizontal ? MediaQuery.of(context).size.height * .8: MediaQuery.of(context).size.height*.3,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                            image: ExactAssetImage(conteudo.images[number]),
+                          ),
+                        ),
+                      );
+                  }
                 return SingleChildScrollView(
                   child: Center(
                     child: FractionallySizedBox(
@@ -96,9 +114,9 @@ class _IndividualidadesNenState extends State<IndividualidadesNen>{
                       child: Column(
                         children: [
                           const SizedBox(height: 30,),
-                          Text(conteudo.content[0], style: TextStyle(color: const Color.fromRGBO(255, 255, 255, 1), fontSize: fontSize),),
+                          text(0),
                           const SizedBox(height: 10,),
-                          Text(conteudo.content[1], style: TextStyle(color: const Color.fromRGBO(255, 255, 255, 1), fontSize: fontSize),),
+                          text(1),
                           const SizedBox(height: 10,),
                           CarouselSlider(
                             options: CarouselOptions(
@@ -107,44 +125,33 @@ class _IndividualidadesNenState extends State<IndividualidadesNen>{
                               enableInfiniteScroll: true,
                               enlargeCenterPage: true,
                             ),
-                            items: conteudo.images.map((imagens) {
+                            items: [0,1,2,3,4,5,6].map((imagens) {
                               return Stack(
                                 children: [
                                   Container(
                                     color: Colors.blueGrey,
                                   ),
                                   Center(
-                                    child: Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    height: isHorizontal ? MediaQuery.of(context).size.height * .8: MediaQuery.of(context).size.height*.6,
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                      image: ExactAssetImage(imagens),
-                                    ),
-                                    ),
-                                    ),
+                                    child: image(imagens)
                                   ),
                                 ],
                               );
                             }).toList(), 
                             ),
                           const SizedBox(height: 10,),
-                          Text(conteudo.content[2], style: TextStyle(color: const Color.fromRGBO(255, 255, 255, 1), fontSize: fontSize),),
+                          text(2),
                           const SizedBox(height: 10,),
-                          Text(conteudo.content[3], style: TextStyle(color: const Color.fromRGBO(255, 255, 255, 1), fontSize: fontSize),),
-                          const SizedBox(height: 10,),
-                          Text(conteudo.content[4], style: TextStyle(color: const Color.fromRGBO(255, 255, 255, 1), fontSize: fontSize),),
-                          const SizedBox(height: 10,),
-                          Text(conteudo.content[5], style: TextStyle(color: const Color.fromRGBO(255, 255, 255, 1), fontSize: fontSize),),                         
-                          Container(
-                            width: MediaQuery.of(context).size.width,
-                            height: isHorizontal ? MediaQuery.of(context).size.height * .8: MediaQuery.of(context).size.height*.3,
-                            decoration: const BoxDecoration(
-                              image: DecorationImage(
-                              image: ExactAssetImage('assets/images/individualidadesDoNen7.png'),
-                            ),
-                          ),
-                          ),
+                          text(3),
+                          const SizedBox(height: 20,),
+                          title(1),
+                          const SizedBox(height: 5,),
+                          text(4),
+                          const SizedBox(height: 20,),
+                          title(2),
+                          const SizedBox(height: 5,),
+                          text(5),  
+                          const SizedBox(height: 10,),                  
+                          image(7),
                           const SizedBox(height: 30,),
                         ],
                       ),

@@ -15,7 +15,7 @@ class NenController {
     try {
       final List<Nen> nenContent = await _dataSource.getNenContent(titulo: titulo);
       setNenContent(nenContent);
-      return nenContent;
+      return [];
     } catch (e) {
       return [];
     }

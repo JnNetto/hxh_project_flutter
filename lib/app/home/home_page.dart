@@ -5,13 +5,14 @@ import 'package:stroke_text/stroke_text.dart';
 import '../core/utils/config_screen.dart';
 import '../core/utils/background_music.dart';
 
+
+
 class HomePage extends StatefulWidget{
   const HomePage({super.key});
   @override
   State<StatefulWidget> createState() => _HomePage();
   
 }
-
 class _HomePage extends State<HomePage> with WidgetsBindingObserver{
 
   var verify = true;
@@ -66,7 +67,8 @@ void _showMenu(BuildContext contextDialog, double maxHeight, double maxWidth) {
                         child: ElevatedButton(
                           onPressed: () {                     
                             verify = true;
-                            Modular.to.pushNamed("/nenPage");
+                            Modular.to.pop();
+                            Modular.to.pushNamed("/nenPage",);
                           },
                           style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all<Color>(Colors.white)
@@ -100,7 +102,7 @@ void _showMenu(BuildContext contextDialog, double maxHeight, double maxWidth) {
   void initState() {
     BackgroundMusicPlayer.loadMusic(0);
     super.initState();
-    // BackgroundMusicPlayer.playBackgroundMusic(0);
+    BackgroundMusicPlayer.playBackgroundMusic(0);
     Timer.periodic(const Duration(milliseconds: 500),(timer){
       setState(() {
         _isVisible = !_isVisible;
@@ -108,35 +110,39 @@ void _showMenu(BuildContext contextDialog, double maxHeight, double maxWidth) {
     });
     WidgetsBinding.instance.addObserver(this);
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: ElevatedButton(
-        onPressed: () {
-          showDialog(
-              context: context,             
-              builder: (BuildContext context) {
-                return const SettingsDialog();
-              },
-            );
-          },
-        style: ElevatedButton.styleFrom(
-          padding: EdgeInsets.zero,
-          backgroundColor: Colors.black,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12.0), 
+      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(top: 20,),
+        child: ElevatedButton( 
+          onPressed: () {
+            showDialog(
+                context: context,             
+                builder: (BuildContext context) {
+                  return const SettingsDialog();
+                },
+              );
+            },
+          style: ElevatedButton.styleFrom(
+            padding: EdgeInsets.zero,
+            backgroundColor: Colors.black,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12.0), 
+                ),
               ),
-            ),
-        child: Ink(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12.0), 
-              ),
-          child: const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Icon(Icons.settings, color: Colors.white,),
-              ),
-            ),),
+          child: Ink(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12.0), 
+                ),
+            child: const Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Icon(Icons.settings, color: Colors.white,),
+                ),
+              ),),
+      ),
       body: LayoutBuilder(builder: (context, constrants){
         return Stack(
           children: [
@@ -155,7 +161,7 @@ void _showMenu(BuildContext contextDialog, double maxHeight, double maxWidth) {
               visible: verify,
               child: GestureDetector(
                 onTap:() {
-                  BackgroundMusicPlayer.playBackgroundMusic(0);
+                  // BackgroundMusicPlayer.playBackgroundMusic(0);
                   _showMenu(context, constrants.maxHeight, constrants.maxWidth);
                   verify = false;
                   },
@@ -171,7 +177,7 @@ void _showMenu(BuildContext contextDialog, double maxHeight, double maxWidth) {
                           fontSize: 30,
                           color: Colors.white
                         ),
-                        strokeColor: Colors.black,
+                        strokeColor: Color.fromARGB(255, 73, 73, 73),
                         strokeWidth: 5,
                       ),
                     ),

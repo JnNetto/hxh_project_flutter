@@ -2,19 +2,19 @@ import 'dart:convert';
 
 class Nen {
 
-  final String titulo;
+  final List titulos;
   final List content;
   final List images;
 
-  Nen({required this.titulo, required this.content, required this.images,});
+  Nen({required this.titulos, required this.content, required this.images,});
 
   Nen copyWith({
-    String? titulo,
+    List? titulos,
     List? content,
     List? images,
   }) {
     return Nen(
-      titulo: titulo ?? this.titulo,
+      titulos: titulos ?? this.titulos,
       content: content ?? this.content,
       images: images ?? this.images,
     );
@@ -32,7 +32,7 @@ class Nen {
     return {
       'content': content,
       'images': images,
-      'titulo': titulo,
+      'titulos': titulos,
     };
   }
 
@@ -40,7 +40,7 @@ class Nen {
     return Nen(
       content: map['content'] as List,
       images: map['images'] as List,
-      titulo: map['titulo'] as String,
+      titulos: map['titulos'] as List,
     );
   }
 

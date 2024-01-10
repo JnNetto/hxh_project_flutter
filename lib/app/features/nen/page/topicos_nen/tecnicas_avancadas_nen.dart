@@ -87,18 +87,26 @@ class _TecnicasAvancadasNenState extends State<TecnicasAvancadasNen>{
               ),
               ...widget.controller.nenContent!.map((conteudo){
                 bool isHorizontal = constraints.maxWidth > constraints.maxHeight;
+                double fontTitleSize = 22;
                 double fontSize = 17;
                 List<Widget> contentRepeated = [];
                 for (var i = 0; i < 7; i++) {
                   contentRepeated.add(
                     Column(
                       children: [
-                        const SizedBox(height: 30),
+                        Text(
+                          conteudo.titulos[i + 1], 
+                          style: TextStyle(
+                            color: Colors.white, 
+                            fontSize: fontTitleSize, 
+                            fontFamily: 'SM'),),
+                        const SizedBox(height: 10),
                         Text(
                           conteudo.content[i + 1],
                           style: TextStyle(
-                            color: const Color.fromRGBO(255, 255, 255, 1),
+                            color: Colors.white,
                             fontSize: fontSize,
+                            fontFamily: 'SM'
                           ),
                         ),
                         const SizedBox(height: 5),
@@ -117,15 +125,16 @@ class _TecnicasAvancadasNenState extends State<TecnicasAvancadasNen>{
                                   ),
                                 ),
                               ),
-                              const SizedBox(height: 5),
+                              const SizedBox(height: 3),
                               Text(
                                 conteudo.images[i + 7],
                                 textAlign: TextAlign.center,
                                 style: const TextStyle(
-                                  color: Color.fromARGB(255, 255, 252, 252),
+                                  color: Colors.white,
                                   fontSize: 11,
                                 ),
                               ),
+                              const SizedBox(height: 40),
                             ],
                           ),
                         ),
@@ -140,7 +149,8 @@ class _TecnicasAvancadasNenState extends State<TecnicasAvancadasNen>{
                       child: Column(
                         children: [
                           const SizedBox(height: 30,),
-                          Text(conteudo.content[0], style: TextStyle(color: const Color.fromRGBO(255, 255, 255, 1), fontSize: fontSize),),
+                          Text(conteudo.content[0], style: TextStyle(color: Colors.white, fontSize: fontSize, fontFamily: 'SM'),),
+                          const SizedBox(height: 30,),
                           ...contentRepeated
                         ],
                       ),
