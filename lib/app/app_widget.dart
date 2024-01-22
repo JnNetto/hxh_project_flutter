@@ -19,7 +19,7 @@ class _AppWidgetState extends State<AppWidget> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-    _startTimer();
+    // _startTimer();
     BackgroundMusicPlayer.initialize();
     WidgetsBinding.instance.addObserver(this);
   }
@@ -44,15 +44,14 @@ class _AppWidgetState extends State<AppWidget> with WidgetsBindingObserver {
       systemNavigationBarIconBrightness: Brightness.dark,
     ));
   }
-  
+
   @override
   void dispose() {
-    _timer.cancel();
+    // _timer.cancel();
     WidgetsBinding.instance.removeObserver(this);
     BackgroundMusicPlayer.disposeBackgroundMusic();
     super.dispose();
   }
-
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
@@ -68,9 +67,9 @@ class _AppWidgetState extends State<AppWidget> with WidgetsBindingObserver {
         BackgroundMusicPlayer.resumeBackgroundMusic();
         SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
         SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-          statusBarColor: Colors.transparent, 
-          statusBarIconBrightness: Brightness.dark, 
-          systemNavigationBarColor: Colors.transparent, 
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.dark,
+          systemNavigationBarColor: Colors.transparent,
           systemNavigationBarIconBrightness: Brightness.dark,
         ));
         break;
@@ -94,10 +93,9 @@ class _AppWidgetState extends State<AppWidget> with WidgetsBindingObserver {
       theme: ThemeData(
         useMaterial3: true,
         colorSchemeSeed: const Color(0xFF1b8853),
-      ),     
+      ),
       routeInformationParser: Modular.routeInformationParser,
       routerDelegate: Modular.routerDelegate,
     );
   }
 }
-
