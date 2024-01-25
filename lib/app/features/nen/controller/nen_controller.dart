@@ -1,4 +1,3 @@
-
 import 'package:hxh/app/features/nen/model/nen_model.dart';
 
 import '../datasource/nen_datasource_impl.dart';
@@ -11,11 +10,10 @@ class NenController {
   List<Nen>? nenContent;
   setNenContent(List<Nen>? value) => nenContent = value;
 
-  Future<List<Nen>> getNenContent({required String titulo}) async {
+  getNenContent({required String titulo}) async {
     try {
-      final List<Nen> nenContent = await _dataSource.getNenContent(titulo: titulo);
-      setNenContent(nenContent);
-      return [];
+      nenContent?.clear();
+      setNenContent(await _dataSource.getNenContent(titulo: titulo));
     } catch (e) {
       return [];
     }

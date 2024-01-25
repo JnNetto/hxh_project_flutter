@@ -108,7 +108,7 @@ class _HomePage extends State<HomePage> with WidgetsBindingObserver {
   void initState() {
     BackgroundMusicPlayer.loadMusic(0);
     super.initState();
-    // BackgroundMusicPlayer.playBackgroundMusic(0);
+    BackgroundMusicPlayer.playBackgroundMusic(0);
     Timer.periodic(const Duration(milliseconds: 500), (timer) {
       setState(() {
         _isVisible = !_isVisible;
